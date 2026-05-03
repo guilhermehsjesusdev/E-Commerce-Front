@@ -8,7 +8,12 @@
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
     @for (product of products; track product.id) {
       <div class="bg-white rounded-xl shadow hover:shadow-md transition overflow-hidden">
-        <div class="bg-gray-100 h-48 flex items-center justify-center text-5xl">🛍️</div>
+        @if (product.imageUrl) {
+          <img [src]="product.imageUrl" alt="{{ product.name }}"
+            class="h-48 w-full object-cover" />
+        } @else {
+          <div class="bg-gray-100 h-48 flex items-center justify-center text-5xl">🛍️</div>
+        }
         <div class="p-4">
           <h3 class="font-semibold text-gray-800 text-lg">{{ product.name }}</h3>
           <p class="text-gray-500 text-sm mt-1 line-clamp-2">{{ product.description }}</p>

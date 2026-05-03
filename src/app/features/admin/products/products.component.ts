@@ -24,7 +24,9 @@ export class ProductsComponent implements OnInit {
   price = 0;
   stock = 0;
   categoryId = '';
+  imageUrl = '';
   error = '';
+  success = '';
 
   ngOnInit() {
     this.load();
@@ -36,11 +38,23 @@ export class ProductsComponent implements OnInit {
   }
 
   save() {
-    this.productService.create({ name: this.name, description: this.description, price: this.price, stock: this.stock, categoryId: this.categoryId })
-      .subscribe({
-        next: () => { this.load(); this.showForm = false; this.reset(); },
-        error: () => this.error = 'Erro ao salvar produto.'
-      });
+    this.productService.create({
+      name: this.name,
+      description: this.description,
+      price: this.price,
+      stock: this.stock,
+      categoryId: this.categoryId,
+      imageUrl: this.imageUrl || undefined
+    }).subscribe({
+      next: () => {
+        this.load();
+        this.showForm = false;
+        this.reset();
+        this.success = 'Produto criado com sucesso!';
+        setTimeout(() => this.success = '', 3000);
+      },
+      error: () => this.error = 'Erro ao salvar produto.'
+    });
   }
 
   delete(id: string) {
@@ -49,6 +63,12 @@ export class ProductsComponent implements OnInit {
   }
 
   reset() {
-    this.name = ''; this.description = ''; this.price = 0; this.stock = 0; this.categoryId = '';
+    this.name = '';
+    this.description = '';
+    this.price = 0;
+    this.stock = 0;
+    this.categoryId = '';
+    this.imageUrl = '';
+    this.error = '';
   }
 }

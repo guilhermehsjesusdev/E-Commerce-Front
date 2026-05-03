@@ -14,6 +14,7 @@ export class CategoriesComponent implements OnInit {
   categoryService = inject(CategoryService);
   name = '';
   error = '';
+  success = '';
 
   ngOnInit() {
     this.load();
@@ -24,9 +25,14 @@ export class CategoriesComponent implements OnInit {
   }
 
   save() {
-    if (!this.name) return;
+    if (!this.name.trim()) return;
     this.categoryService.create(this.name).subscribe({
-      next: () => { this.load(); this.name = ''; },
+      next: () => {
+        this.load();
+        this.name = '';
+        this.success = 'Categoria criada com sucesso!';
+        setTimeout(() => this.success = '', 3000);
+      },
       error: () => this.error = 'Erro ao salvar categoria.'
     });
   }

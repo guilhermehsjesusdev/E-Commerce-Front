@@ -1,9 +1,14 @@
 <div class="max-w-4xl mx-auto px-6 py-10">
   @if (product) {
     <div class="bg-white rounded-xl shadow p-8 flex flex-col md:flex-row gap-8">
-      <div class="bg-gray-100 rounded-xl h-64 w-full md:w-72 flex items-center justify-center text-7xl flex-shrink-0">
-        🛍️
-      </div>
+      @if (product.imageUrl) {
+        <img [src]="product.imageUrl" alt="{{ product.name }}"
+          class="rounded-xl h-64 w-full md:w-72 object-cover flex-shrink-0" />
+      } @else {
+        <div class="bg-gray-100 rounded-xl h-64 w-full md:w-72 flex items-center justify-center text-7xl flex-shrink-0">
+          🛍️
+        </div>
+      }
       <div class="flex-1">
         <h1 class="text-3xl font-bold text-gray-800 mb-2">{{ product.name }}</h1>
         <p class="text-gray-500 mb-6">{{ product.description }}</p>
