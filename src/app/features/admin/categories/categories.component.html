@@ -1,0 +1,26 @@
+<div class="max-w-2xl mx-auto px-6 py-10">
+  <h1 class="text-3xl font-bold text-gray-800 mb-8">Categorias</h1>
+
+  @if (error) {
+    <div class="bg-red-100 text-red-700 px-4 py-3 rounded mb-4">{{ error }}</div>
+  }
+
+  <div class="flex gap-3 mb-8">
+    <input [(ngModel)]="name" placeholder="Nome da categoria"
+      class="flex-1 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+    <button (click)="save()"
+      class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
+      Adicionar
+    </button>
+  </div>
+
+  <div class="bg-white rounded-xl shadow overflow-hidden">
+    @for (cat of categories; track cat.id) {
+      <div class="flex items-center justify-between px-6 py-4 border-b last:border-0">
+        <span class="text-gray-800 font-medium">{{ cat.name }}</span>
+      </div>
+    } @empty {
+      <p class="text-gray-500 px-6 py-4">Nenhuma categoria cadastrada.</p>
+    }
+  </div>
+</div>

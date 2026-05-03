@@ -1,0 +1,43 @@
+<div class="max-w-2xl mx-auto px-6 py-10">
+  <h1 class="text-3xl font-bold text-gray-800 mb-8">Finalizar Pedido</h1>
+
+  @if (success) {
+    <div class="bg-green-100 text-green-700 px-6 py-4 rounded-xl text-center">
+      ✅ Pedido realizado com sucesso! Redirecionando...
+    </div>
+  } @else {
+    @if (error) {
+      <div class="bg-red-100 text-red-700 px-4 py-3 rounded mb-4">{{ error }}</div>
+    }
+
+    <div class="bg-white rounded-xl shadow overflow-hidden mb-6">
+      @for (item of cart.items(); track item.product.id) {
+        <div class="flex justify-between px-6 py-4 border-b last:border-0">
+          <div>
+            <p class="font-medium text-gray-800">{{ item.product.name }}</p>
+            <p class="text-sm text-gray-500">Qtd: {{ item.quantity }}</p>
+          </div>
+          <span class="font-bold text-blue-600">
+            {{ item.product.price * item.quantity | currency:'BRL' }}
+          </span>
+        </div>
+      }
+    </div>
+
+    <div class="flex items-center justify-between bg-white rounded-xl shadow px-6 py-4 mb-6">
+      <p class="text-gray-500">Total</p>
+      <p class="text-2xl font-bold text-gray-800">{{ cart.total() | currency:'BRL' }}</p>
+    </div>
+
+    <div class="flex gap-3">
+      <button (click)="confirm()"
+        class="flex-1 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition font-medium">
+        Confirmar Pedido
+      </button>
+      <a routerLink="/cart"
+        class="flex-1 text-center border border-gray-300 text-gray-600 py-3 rounded-lg hover:bg-gray-50 transition">
+        Voltar
+      </a>
+    </div>
+  }
+</div>
